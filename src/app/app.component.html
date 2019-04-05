@@ -1,0 +1,68 @@
+<h2>Hello world</h2>
+<p>Please create a test case and attach the link of the plunkr to your github issue report.</p>
+
+<h3>Custom sort</h3>
+<p-treeTable [value]="files" [columns]="cols" (sortFunction)="customSort($event)" [customSort]="true">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                {{col.header}}
+                <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
+
+<h3>Checkbox</h3>
+<p-treeTable 
+[value]="files2" 
+[columns]="cols" 
+dataKey="name"
+selectionMode="checkbox" 
+(onNodeSelect)="nodeSelect($event)"
+(onNodeUnselect)="nodeUnselect($event)"
+[(selection)]="selectedNodes3">
+    <ng-template pTemplate="caption">
+        <div style="text-align:left">
+            <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+            <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div style="text-align: left">
+            Selected Nodes: <span *ngIf="!selectedNodes3 || selectedNodes3.length === 0" style="font-weight: normal">none</span>
+            <ul *ngIf="selectedNodes3 && selectedNodes3.length">
+                <li *ngFor="let node of selectedNodes3">
+                    <span style="font-weight: normal">{{node.data.name + ' - ' + node.data.size + ' - ' + node.data.type}}</span>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+</p-treeTable>
+
+<button pButton label="PrimeNG" (click)="onClick($event)"></button>
+{{counter}}
