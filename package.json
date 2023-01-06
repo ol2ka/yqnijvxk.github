@@ -17,7 +17,7 @@
     "@types/jasminewd2": "2.0.6",
     "@types/node": "10.12.30",
     "core-js": "2.6.5",
-    "fullcalendar": "4.0.0-alpha.4",
+    "fullcalendar": "5.0.0",
     "primeflex": "1.0.0-rc.1",
     "primeicons": "1.0.0",
     "primeng": "^7.1.0",
